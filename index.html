@@ -13,9 +13,10 @@
 </head>
 <body>
     <template id="tooltipTemplate">
-        <span> (?)</span>
+        <slot>Default tooltip text</slot><span> (?)</span>
     </template>
     <p><osalam-tooltip text="This is tooltip text">Tool tips </osalam-tooltip>The Custom Element so great!!</p>
     <p><osalam-tooltip text="Welcome to secode tooltip">Tool tips </osalam-tooltip>My second test for Costom element!!</p>
+    <osalam-tooltip text="Default tooltip text"></osalam-tooltip>
 </body>
 </html>
