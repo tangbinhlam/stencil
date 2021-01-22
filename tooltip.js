@@ -3,7 +3,18 @@ class Tooltip extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.shadowRoot.innerHTML = `<slot>Some default</slot><span> (?)</span>`;
+        this.shadowRoot.innerHTML = `
+            <style>
+                div {
+                    background : grey;
+                    color:  white;
+                    position : absolute;
+                    zIndex : 10;
+                }
+            </style>
+            <slot>Some default</slot>
+            <span> (?)</span>
+        `;
     }
 
     connectedCallback() {
@@ -17,13 +28,7 @@ class Tooltip extends HTMLElement {
 
     _showTooltip() {
         this._tooltipContainer = document.createElement('div');
-        // Set Content
         this._tooltipContainer.textContent = this._tooltipText;
-        // Set style
-        this._tooltipContainer.style.background = 'grey';
-        this._tooltipContainer.style.color = 'white';
-        this._tooltipContainer.style.position = 'absolute';
-        this._tooltipContainer.style.zIndex = '10';
         this.shadowRoot.append(this._tooltipContainer);
     }
 
