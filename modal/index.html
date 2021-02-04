@@ -20,5 +20,12 @@
     <uc-modal>When it comes to the body of your Confirmation message, you want to make sure that you use the right wording. If you’re stuck and trying to figure out what to say next, check out the messaging samples below?</uc-modal>
     <p>Please confirm your choice.</p>
     <button>Show Details & Confirm</button>
+    <script>
+        const confirmButton = document.querySelector('button');
+        const modal = document.querySelector('uc-modal');
+        confirmButton.addEventListener('click', () => {
+            modal.setAttribute('opened','');
+        });
+    </script>
 </body>
 </html>
