@@ -75,11 +75,21 @@ customElements.define('uc-modal', class Modal extends HTMLElement {
                     <slot></slot>
                 </section>
                 <section id="actions">
-                    <button>Cancel</button>
-                    <button>OK</button>
+                    <button id="cancelBtn">Cancel</button>
+                    <button id="okBtn">OK</button>
                 </section>
             </div>
         `
+
+        const slots = this.shadowRoot.querySelectorAll('slot');
+        slots[0].addEventListener('slotchange', event => {
+            console.dir(slots[1].assignedNodes());
+        });
+
+        const cancelBtn = this.shadowRoot.querySelector('#cancelBtn');
+        const okBtn = this.shadowRoot.querySelector('#okBtn');
+        cancelBtn.addEventListener('click', this._cancel.bind(this));
+        okBtn.addEventListener('click', this._ok.bind(this));
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -96,5 +106,20 @@ customElements.define('uc-modal', class Modal extends HTMLElement {
     open() {
         this.setAttribute('opened', '');
         this.isOpen = true;
+    }
+
+    close() {
+        if (this.hasAttribute('opened')) {
+            this.removeAttribute('opened');
+        }
+        this.isOpen = false;
+    }
+
+    _cancel() {
+        this.close();
+    }
+
+    _ok() {
+        this.close();
     }
 })
