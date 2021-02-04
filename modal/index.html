@@ -25,15 +25,11 @@
         const modal = document.querySelector('uc-modal');
 
         modal.addEventListener('confirm', () => {
-            if(modal.isOpen) {
-                modal.clolse();
-            }
+            console.log('confirm....');
         });
 
         modal.addEventListener('cancel', () => {
-            if(modal.isOpen) {
-                modal.clolse();
-            }
+            console.log('cancel....');
         });
         confirmButton.addEventListener('click', () => {
             //modal.setAttribute('opened','');

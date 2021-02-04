@@ -27,11 +27,15 @@ customElements.define('uc-modal', class Modal extends HTMLElement {
                     pointer-events: all;
                 }
 
+                :host([opened]) #modal {
+                    top: 20vh;
+                }
+
                 #modal {
                     position: fixed;
-                    top: 15vh;
-                    left: 25%;
-                    width: 50%;
+                    top: 10vh;
+                    left: 30%;
+                    width: 40%;
                     z-index: 100;
                     background: white;
                     border-radius: 3px;
@@ -41,10 +45,17 @@ customElements.define('uc-modal', class Modal extends HTMLElement {
                     justify-content: space-between;
                     opacity: 0;
                     pointer-events: none;
+                    transition: all 0.5s ease-out;
                 }
 
                 header {
                     padding: 1rem;
+                    border-bottom: 1px solid #ccc;
+                }
+
+                ::slotted(h1) {
+                    font-size: 1.25rem;
+                    margin: 0;
                 }
 
                 header h1{
@@ -90,6 +101,8 @@ customElements.define('uc-modal', class Modal extends HTMLElement {
         const okBtn = this.shadowRoot.querySelector('#okBtn');
         cancelBtn.addEventListener('click', this._cancel.bind(this));
         okBtn.addEventListener('click', this._ok.bind(this));
+
+        this.shadowRoot.querySelector('#backdrop').addEventListener('click', this._cancel.bind(this));
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -115,11 +128,13 @@ customElements.define('uc-modal', class Modal extends HTMLElement {
         this.isOpen = false;
     }
 
-    _cancel() {
+    _cancel(event) {
         this.close();
+        event.target.dispatchEvent(new Event('cancel', { bubbles: true, composed: true }))
     }
 
     _ok() {
         this.close();
+        this.dispatchEvent(new Event('confirm', { bubbles: true, composed: true }))
     }
 })
