@@ -35,3 +35,22 @@ header button {
   font-size: 1rem;
   border: none;
 }
+
+section button {
+  padding: 0.3rem;
+  font-weight: bold;
+  background-color:white;
+  border-top-right-radius: 0.4rem;
+  color: black;
+}
+
+button.active,
+button:hover,
+button:active {
+  color: white;
+  background-color: cornflowerblue;
+}
+
+mainContent {
+  padding: 1rem;
+}
