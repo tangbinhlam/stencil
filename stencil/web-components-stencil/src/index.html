@@ -9,5 +9,12 @@
     <script nomodule src="/build/web-components-stencil.js"></script>
   </head>
   <body>
+    <uc-side-drawer title="Main Menu">Items</uc-side-drawer>
+    <script>
+      const sideDraw = document.querySelector('uc-side-drawer');
+      setTimeout(() => {
+        sideDraw.title = 'It changed';
+      }, 3000);
+    </script>
   </body>
 </html>
