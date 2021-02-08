@@ -1,20 +1,37 @@
 aside {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -100%;
   width: 30rem;
   max-width: 80%;
   height: 100vh;
   background: rgba(231, 239, 237, 0.612);
   box-shadow:  0 2px 8px rgba(0, 0, 0, 0.26);
+  transition: left 0.0.6s step-end;
+}
+
+:host([open]) aside {
+  left: 0;
 }
 
 header {
   padding: 1rem;
   background-color: black;
+  position: relative;
 }
 
 header h1 {
   font-size: 1.5rem;
   color: white;
+}
+
+header button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+  color: white;
+  background: transparent;
+  font-size: 1rem;
+  border: none;
 }

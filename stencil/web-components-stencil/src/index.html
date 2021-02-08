@@ -25,6 +25,7 @@
     </style>
   </head>
   <body>
+    <button>Open Side Menu</button>
     <uc-side-drawer title="Main Menu">
       <nav class="side-nav">
         <ul>
@@ -33,5 +34,12 @@
         </ul>
       </nav>
     </uc-side-drawer>
+    <script>
+      const button = document.querySelector('button');
+      const nav = document.querySelector('uc-side-drawer');
+      button.addEventListener('click', () =>
+          nav.setAttribute('open', '')
+      );
+    </script>
   </body>
 </html>
