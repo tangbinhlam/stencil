@@ -7,14 +7,31 @@
 
     <script type="module" src="/build/web-components-stencil.esm.js"></script>
     <script nomodule src="/build/web-components-stencil.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .side-nav ul {
+        list-style: none;
+
+      }
+      .side-nav li {
+        margin: 1rem 0;
+      }
+      .side-nav a {
+        text-decoration: none;
+        color:blue;
+      }
+    </style>
   </head>
   <body>
-    <uc-side-drawer title="Main Menu">Items</uc-side-drawer>
-    <script>
-      const sideDraw = document.querySelector('uc-side-drawer');
-      setTimeout(() => {
-        sideDraw.title = 'It changed';
-      }, 3000);
-    </script>
+    <uc-side-drawer title="Main Menu">
+      <nav class="side-nav">
+        <ul>
+          <li><a href="">Home</a></li>
+          <li><a href="">Coures</a></li>
+        </ul>
+      </nav>
+    </uc-side-drawer>
   </body>
 </html>
