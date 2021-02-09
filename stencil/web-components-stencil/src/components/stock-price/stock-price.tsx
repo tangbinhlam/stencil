@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, State } from '@stencil/core';
+import { Component, Element, h, Prop, State, Watch } from '@stencil/core';
 
 @Component({
   tag: 'uc-stock-price',
@@ -13,7 +13,15 @@ export class StockPrice {
   @State() validForm = false;
   @State() error;
 
-  @Prop() stockSymbol: string;
+  @Prop({ mutable: true, reflect: true }) stockSymbol: string;
+
+  @Watch('stockSymbol')
+  stockSymbolChanged(newValue: string, oldValue: string) {
+    if (newValue !== oldValue) {
+      this.stockUserInput = newValue;
+      this.fetchData(newValue);
+    }
+  }
 
   symbolInput: HTMLInputElement;
 
