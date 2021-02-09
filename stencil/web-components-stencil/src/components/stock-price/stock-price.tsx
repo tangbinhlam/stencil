@@ -1,4 +1,4 @@
-import { Component, Element, h, State } from '@stencil/core';
+import { Component, Element, h, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'uc-stock-price',
@@ -13,12 +13,18 @@ export class StockPrice {
   @State() validForm = false;
   @State() error;
 
+  @Prop() stockSymbol: string;
+
   symbolInput: HTMLInputElement;
 
   onFetchStockPrice(event: Event) {
     event.preventDefault();
     //const symbol = (this.el.shadowRoot.querySelector('#stock-symbol') as HTMLInputElement).value;
     const symbol = this.symbolInput.value;
+    this.fetchData(symbol);
+  }
+
+  fetchData(symbol: string) {
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=demo`)
       .then(res => { return res.json(); })
       .then(parsedRes => {
@@ -29,6 +35,13 @@ export class StockPrice {
         this.price = parsedRes['Global Quote']['05. price'];
       })
       .catch(err => this.error = err.message)
+  }
+
+  componentDidLoad() {
+    if (this.stockSymbol) {
+      this.symbolInput.value = this.stockSymbol;
+      this.fetchData(this.stockSymbol);
+    }
   }
 
   render() {
