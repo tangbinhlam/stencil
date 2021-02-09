@@ -38,3 +38,7 @@ form button[disabled] {
   color: white;
   cursor: none;
 }
+
+.error {
+  color: red;
+}

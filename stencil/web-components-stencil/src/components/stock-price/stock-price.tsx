@@ -11,6 +11,7 @@ export class StockPrice {
   @State() price: number;
   @State() stockUserInput: string;
   @State() validForm = false;
+  @State() error;
 
   symbolInput: HTMLInputElement;
 
@@ -21,13 +22,22 @@ export class StockPrice {
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=demo`)
       .then(res => { return res.json(); })
       .then(parsedRes => {
+        if (!parsedRes['Global Quote'] || !parsedRes['Global Quote']['05. price']) {
+          throw new Error('Invalid sysmble');
+        }
+        this.error = null;
         this.price = parsedRes['Global Quote']['05. price'];
-        console.log(parsedRes['Global Quote']['05. price'])
       })
-      .catch(err => console.log(err))
+      .catch(err => this.error = err.message)
   }
 
   render() {
+    let content = <p>Pleae enter the symbol</p>;
+    if (this.error) {
+      content = <p class="error">{this.error}</p>
+    } else if (this.price) {
+      content = <p>Price: {this.price}</p>;
+    }
     return [
       <form onSubmit={this.onFetchStockPrice.bind(this)}>
         <input id="stock-symbol" ref={el => this.symbolInput = el} value={this.stockUserInput}
@@ -36,7 +46,7 @@ export class StockPrice {
         <button type="submit" disabled={!this.validForm}>Fetch</button>
       </form>,
       <div>
-        <p>Price: {this.price}</p>
+        {content}
       </div>
     ]
   }
