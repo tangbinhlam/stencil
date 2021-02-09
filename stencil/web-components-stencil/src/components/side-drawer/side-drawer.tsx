@@ -11,6 +11,7 @@ export class SideDrawer {
   @Prop({ reflect: true, mutable: true }) opened: boolean;
 
   render() {
+    //Some Test
     let mainContent = <slot />;
     if (this.showContactInfo) {
       mainContent = (
