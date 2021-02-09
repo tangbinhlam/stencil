@@ -9,6 +9,8 @@ export class StockPrice {
 
   @Element() el: HTMLElement;
   @State() price: number;
+  @State() stockUserInput: string;
+  @State() validForm = false;
 
   symbolInput: HTMLInputElement;
 
@@ -28,13 +30,20 @@ export class StockPrice {
   render() {
     return [
       <form onSubmit={this.onFetchStockPrice.bind(this)}>
-        <input id="stock-symbol" ref={el => this.symbolInput = el}></input>
-        <button type="submit">Fetch</button>
+        <input id="stock-symbol" ref={el => this.symbolInput = el} value={this.stockUserInput}
+          onInput={this.onInputChange.bind(this)}
+        ></input>
+        <button type="submit" disabled={!this.validForm}>Fetch</button>
       </form>,
       <div>
         <p>Price: {this.price}</p>
       </div>
     ]
+  }
+
+  onInputChange(event: Event) {
+    this.stockUserInput = (event.target as HTMLInputElement).value;
+    this.validForm = this.stockUserInput.trim().length > 0
   }
 
 }

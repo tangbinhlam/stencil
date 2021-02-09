@@ -32,3 +32,9 @@ form button:hover,
 form button:active {
   background-color: rgb(0, 126, 164);
 }
+form button[disabled] {
+  background-color: #ccc;
+  border-color:#ccc;
+  color: white;
+  cursor: none;
+}
